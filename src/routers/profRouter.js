@@ -8,6 +8,7 @@ router.post('/create-prof', ProfController.createProf)
 router.post('/login-prof', ProfController.loginProf)
 router.post('/create-aluno', authProf, ProfController.createAluno)
 router.put('/edit-aluno/:id', authProf, ProfController.editAluno)
+router.delete('/delete-aluno/:id', authProf, ProfController.deleteAluno)
 router.get('/get-all-students', authProf, ProfController.getAllStudents)
 
 export default router

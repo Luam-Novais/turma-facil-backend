@@ -26,6 +26,12 @@ export default class ProfController{
             res.status(200).json(editedAluno)
         }
     }
+    static async deleteAluno(req, res){
+        const {id} = req.params
+        if(!id) res.status(400).json({message: 'Falha ao excluir aluno.'})
+        const deleteAluno = await ProfService.deleteAluno({id})
+        res.status(200).json({message: deleteAluno.message, deleteAluno})
+    }
     static async getAllStudents (req,res){
         const allStudents = await ProfService.getAllStudents()
         res.status(200).json(allStudents)

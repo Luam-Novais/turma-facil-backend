@@ -71,7 +71,10 @@ export default class ProfService {
       return{message: 'Aluno não encontrado.'}
     }
   }
-
+  static async deleteAluno({id}){
+    const deleteAluno = await prisma.aluno.delete({where: {id: Number(id)}})
+    return {message: `O aluno ${deleteAluno.name} foi excluído com sucesso.`, deleteAluno}
+  }
   static async getAllStudents() {
     const allStudents = await prisma.aluno.findMany();
     return allStudents;
