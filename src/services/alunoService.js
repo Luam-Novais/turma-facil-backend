@@ -1,12 +1,19 @@
 import prisma from '../config/prisma.js';
 
 export default class AlunoService {
-  static async createAluno({ name }) {
+  static async createAluno({ name, modalidadeId }) {
+    const formatedName = name.toLowerCase().trim()
     if (name) {
       try {
-        const newAluno = await prisma.aluno.create({ data: { name: name } });
-        return newAluno;
+        const newAluno = await prisma.aluno.create({ data: {
+          name: formatedName,
+          modalidades: {
+            connect: {id: Number(modalidadeId)}
+          }
+        } });
+        return {message: 'Aluno criado com sucesso.', newAluno};
       } catch (error) {
+        console.log(error)
         return { message: 'Ocorreu um erro ao criar o aluno. Tente novamente.' };
       }
     }
@@ -34,9 +41,37 @@ export default class AlunoService {
     const deleteAluno = await prisma.aluno.delete({ where: { id: Number(id) } });
     if(!deleteAluno) return {message: 'O aluno não foi encontrado.'}
     return { message: `O aluno ${deleteAluno.name} foi excluído com sucesso.`, deleteAluno };
+  } 
+  static async addAlunoInModalidade({alunoId, modalidadeId}){
+    try {
+        const findedAluno = await prisma.aluno.update({
+      where: {id: Number(alunoId)},
+      data:{
+        modalidades:{connect:{id : Number(modalidadeId)}}
+      }
+    })
+    return {message: `Aluno adicionado com sucesso a categoria.`, findedAluno}
+    } catch (error) {
+      console.log(error)
+      return{message: 'Falha ao adicionar o aluno a modalidade.'}
+    }
   }
-  static async getAllStudents() {
-    const allStudents = await prisma.aluno.findMany();
-    return allStudents;
+  static async getAllAlunos() {
+    const allAlunos = await prisma.aluno.findMany();
+    return allAlunos;
+  }
+  static async getAlunoByModalidade({modalidadeId}){
+   try {
+       const findedAlunos = await prisma.modalidade.findMany({
+      where: {id: Number(modalidadeId)},
+      include:{
+        alunos: true
+      }
+    })
+    if(!findedAlunos) return {message: 'Ainda não existem alunos cadastrados nessa modalidade.'}
+    return findedAlunos
+   } catch (error) {
+      console.log(error)
+   }
   }
 }

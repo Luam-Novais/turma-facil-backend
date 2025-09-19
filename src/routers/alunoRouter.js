@@ -7,7 +7,9 @@ const router = Router()
 router.post('/create-aluno', authProf, AlunoController.createAluno)
 router.put('/edit-aluno/:id', authProf, AlunoController.editAluno)
 router.delete('/delete-aluno/:id', authProf, AlunoController.deleteAluno)
-router.get('/get-all-students', authProf, AlunoController.getAllStudents)
+router.post('/add-aluno-in-modalidade', authProf, AlunoController.addAlunoInModalidade)
+router.get('/get-all-alunos', authProf, AlunoController.getAllAlunos)
+router.get('/get-alunos-by-modalidade', authProf, AlunoController.getAlunosByModalidade)
 
 
 export default router

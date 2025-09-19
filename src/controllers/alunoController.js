@@ -3,10 +3,10 @@ import AlunoService from "../services/alunoService.js";
 export default class AlunoController{
     
     static async createAluno(req, res){
-        const {name} = req.body
+        const {name, modalidadeId} = req.body
         if(!name) res.status(400).json({message: 'Por favor informe o nome do aluno.'})
-        const aluno = await AlunoService.createAluno({name})
-        res.status(201).json({message: 'Aluno criado com suceso.', aluno})
+        const aluno = await AlunoService.createAluno({name, modalidadeId})
+        res.status(201).json(aluno)
     }
     static async editAluno(req,res){
         const {id} = req.params
@@ -22,8 +22,20 @@ export default class AlunoController{
         const deleteAluno = await AlunoService.deleteAluno({id})
         res.status(200).json({message: deleteAluno.message, deleteAluno})
     }
-    static async getAllStudents (req,res){
-        const allStudents = await AlunoService.getAllStudents()
-        res.status(200).json(allStudents)
+    static async addAlunoInModalidade(req, res){
+        const {alunoId, modalidadeId} = req.body
+        if(!alunoId || !modalidadeId) res.status(400).json('Falha ao adicionar o aluno, por favor nos informe o nome e a modalidade.')
+        const addAluno = await AlunoService.addAlunoInModalidade({alunoId, modalidadeId})
+        res.status(200).json(addAluno)
+    }
+    static async getAllAlunos (req,res){
+        const allAlunos = await AlunoService.getAllAlunos()
+        res.status(200).json(allAlunos)
+    }
+    static async getAlunosByModalidade(req, res){
+        const {modalidadeId} = req.body
+        if(!modalidadeId) res.status(400).json({message: 'Por favor informe qual modalidade você deseja buscar.'})
+        const findedAlunos = await AlunoService.getAlunoByModalidade({modalidadeId})
+        res.status(200).json(findedAlunos)
     }
 }
