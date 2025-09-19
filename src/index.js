@@ -8,7 +8,7 @@ app.use(express.json())
 app.use(express.urlencoded())
 app.use('/',profRouter )
 app.use('/aluno', alunoRouter )
-app.use('/modalidade', alunoRouter )
+app.use('/modalidade', modaliRouter )
 
 app.listen(3000, ()=>{
     console.log('servidor rodando...')
