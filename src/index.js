@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import profRouter from './routers/profRouter.js'
 import alunoRouter from './routers/alunoRouter.js'
 import modaliRouter from './routers/modaliRouter.js'
@@ -6,6 +7,7 @@ const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded())
+app.use(cors())
 app.use('/',profRouter )
 app.use('/aluno', alunoRouter )
 app.use('/modalidade', modaliRouter )
