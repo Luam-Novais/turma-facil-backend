@@ -7,8 +7,7 @@ const router = Router()
 //rotas para login e criacao de professor, cada professor tem suas modalidades e os alunos estao vinculados as maticulas
 router.post('/create-prof', ProfController.createProf)
 router.post('/login-prof', ProfController.loginProf)
+router.get('/validate-token', ProfController.validateToken)
 
-
-//rotas para crud das modalidades
 
 export default router
