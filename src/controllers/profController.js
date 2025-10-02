@@ -12,6 +12,7 @@ export default class ProfController{
         const {username, password} = req.body
             if( !username || !password) return res.status(400).json({message: 'Verifique novamente os dados enviados.'})
             const prof = await ProfService.profLogin({username, password})
+            if(prof.error) res.status(401).json(prof)
             res.status(201).json(prof)
     }
     static validateToken(req, res){

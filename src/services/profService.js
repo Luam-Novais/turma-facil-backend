@@ -32,6 +32,9 @@ export default class ProfService {
     const profExisting = await prisma.professor.findUnique({ where: { username: username } });
     try {
       const comparedPass = await bcrypt.compare(password, profExisting.password);
+
+      if(!profExisting || !comparedPass) return {error: true, message: 'Credenciais inválidas.'}
+
       if (profExisting && comparedPass) {
         const payload = {
           name: profExisting.name,
