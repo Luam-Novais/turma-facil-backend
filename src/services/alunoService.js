@@ -60,18 +60,5 @@ export default class AlunoService {
     const allAlunos = await prisma.aluno.findMany();
     return allAlunos;
   }
-  static async getAlunoByModalidade({modalidadeId}){
-   try {
-       const findedAlunos = await prisma.modalidade.findMany({
-      where: {id: Number(modalidadeId)},
-      include:{
-        alunos: true
-      }
-    })
-    if(!findedAlunos) return {message: 'Ainda não existem alunos cadastrados nessa modalidade.'}
-    return findedAlunos
-   } catch (error) {
-      console.log(error)
-   }
-  }
+
 }
