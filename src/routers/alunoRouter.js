@@ -9,7 +9,7 @@ router.put('/edit-aluno/:id', authProf, AlunoController.editAluno)
 router.delete('/delete-aluno/:id', authProf, AlunoController.deleteAluno)
 router.post('/add-aluno-in-modalidade', authProf, AlunoController.addAlunoInModalidade)
 router.get('/get-all-alunos', authProf, AlunoController.getAllAlunos)
-router.get('/get-alunos-by-modalidade', authProf, AlunoController.getAlunosByModalidade)
+
 
 
 export default router
