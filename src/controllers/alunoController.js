@@ -32,10 +32,5 @@ export default class AlunoController{
         const allAlunos = await AlunoService.getAllAlunos()
         res.status(200).json(allAlunos)
     }
-    static async getAlunosByModalidade(req, res){
-        const {modalidadeId} = req.body
-        if(!modalidadeId) res.status(400).json({message: 'Por favor informe qual modalidade você deseja buscar.'})
-        const findedAlunos = await AlunoService.getAlunoByModalidade({modalidadeId})
-        res.status(200).json(findedAlunos)
-    }
+
 }

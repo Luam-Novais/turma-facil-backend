@@ -1,6 +1,26 @@
 import ModalidadeService from "../services/modaliService.js";
 import jwt from 'jsonwebtoken'
 export default class ModalidadeController{
+    static async getAllModalidades(req, res){
+        const {profId} = req.body
+        if(!profId) res.status(400).json({message: 'Efetue o login.'})
+        const modalidades = await ModalidadeService.getAllModalidades({profId})
+        res.status(200).json(modalidades)
+    }
+    static async getModalidadesAndAlunos(req, res){
+        const {profId} = req.body
+        if(!profId) res.status(400).json({message: 'Efetue o login.'})
+        
+        const modalidades = await ModalidadeService.getModalidadesAndAlunos({profId})
+        res.status(200).json(modalidades)
+    }
+        static async getAlunosByModalidade(req, res){
+        const {modalidadeId} = req.body
+        if(!modalidadeId) res.status(400).json({message: 'Por favor informe qual modalidade você deseja buscar.'})
+        const findedAlunos = await ModalidadeService.getAlunoByModalidade({modalidadeId})
+        res.status(200).json(findedAlunos)
+    }
+
     static async createModalidade(req, res){
         const {name} = req.body
         const token = req.headers.authorization.split(' ')[1]
