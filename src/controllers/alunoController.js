@@ -32,5 +32,4 @@ export default class AlunoController{
         const allAlunos = await AlunoService.getAllAlunos()
         res.status(200).json(allAlunos)
     }
-
 }
