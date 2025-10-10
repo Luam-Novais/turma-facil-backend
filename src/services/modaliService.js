@@ -43,13 +43,22 @@ export default class ModalidadeService{
     static async createModalidade({name, profId}){
         const formatedName = name.toLowerCase().trim()
       try {
-          const newModalidade = await prisma.modalidade.create({
+        const findModalidade = await prisma.modalidade.findUnique({
+          where:{
+            name:name
+          }
+        })
+          if(!findModalidade){
+            const newModalidade = await prisma.modalidade.create({
             data:{
                 name: formatedName,
                 profId: profId
             }
         })
         return {message: 'Modalidade criada com sucesso!', newModalidade}
+      }else{
+        return {message: 'Ocorreu um erro ao criar noda modalidade. O nome das modalidades deve ser únicos, selecione outro.'}
+      }
       } catch (error) {
         console.log(error)
         return {message: 'Ocorreu um erro ao criar noda modalidade. Verifique seu login.'}
