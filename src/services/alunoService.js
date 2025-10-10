@@ -57,7 +57,11 @@ export default class AlunoService {
     }
   }
   static async getAllAlunos() {
-    const allAlunos = await prisma.aluno.findMany();
+    const allAlunos = await prisma.aluno.findMany({
+      include:{
+        modalidades:true,
+      }
+    });
     return allAlunos;
   }
 
