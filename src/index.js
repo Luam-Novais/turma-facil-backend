@@ -12,6 +12,6 @@ app.use('/',profRouter )
 app.use('/aluno', alunoRouter )
 app.use('/modalidade', modaliRouter )
 
-app.listen(3000, ()=>{
+app.listen(process.env.PORT || 3000, ()=>{
     console.log('servidor rodando...')
 })
