@@ -1,5 +1,9 @@
-import {PrismaClient} from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg'; // pacote de exemplo
 
-const prisma = new PrismaClient()
-
-export default prisma
+const prisma = new PrismaClient({
+  adapter: new PrismaPg({
+    connectionString: process.env.DATABASE_URL,
+  }),
+});
+export default prisma;
